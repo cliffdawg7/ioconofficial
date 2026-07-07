@@ -1,0 +1,2501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IO-CON | Independent Originals Convention 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-magenta: #FF00FF;
+            --neon-cyan: #00FFFF;
+            --neon-purple: #B026FF;
+            --deep-purple: #000000;
+            --darker-purple: #000000;
+            --grid-purple: #6B2D9E;
+            --hot-pink: #FF1493;
+            --electric-blue: #00D4FF;
+            --sunset-orange: #FF6B35;
+            --chrome-yellow: #FFD700;
+            --white: #FFFFFF;
+            --dark: #000000;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--dark);
+            color: var(--white);
+            overflow-x: hidden;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        /* CLEAN OVERLAY - SUBTLE GRAIN */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.02;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* NAVIGATION */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: linear-gradient(180deg, #000000 0%, transparent 100%);
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+        }
+
+        .nav-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: var(--white);
+            letter-spacing: 6px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 8px 0;
+            border: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--neon-cyan);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--neon-cyan);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* DROPDOWN STYLES */
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown > a {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-dropdown > a::before {
+            content: '▼';
+            font-size: 0.5rem;
+            margin-left: 4px;
+            transition: transform 0.3s ease;
+            order: 2;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.95);
+            border: 1px solid rgba(255, 0, 255, 0.3);
+            min-width: 180px;
+            padding: 10px 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1001;
+            margin-top: 10px;
+        }
+
+        .dropdown-menu::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 0;
+            width: 100%;
+            height: 10px;
+        }
+
+        .nav-dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .nav-dropdown:hover > a::before {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 10px 20px;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
+        .dropdown-menu a::after {
+            display: none;
+        }
+
+        .dropdown-menu a:hover {
+            background: rgba(255, 0, 255, 0.15);
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 30px;
+            height: 3px;
+            background: var(--neon-cyan);
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: #000000;
+        }
+
+        /* RETRO GRID - SUBTLE */
+        .grid-floor {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: 
+                linear-gradient(90deg, rgba(176, 38, 255, 0.3) 1px, transparent 1px) 0 0 / 100px 100px,
+                linear-gradient(0deg, rgba(176, 38, 255, 0.3) 1px, transparent 1px) 0 0 / 100px 100px;
+            transform: perspective(500px) rotateX(60deg);
+            transform-origin: center top;
+            animation: gridMove 20s linear infinite;
+            opacity: 0.4;
+        }
+
+        @keyframes gridMove {
+            0% { background-position: 0 0, 0 0; }
+            100% { background-position: 0 80px, 0 80px; }
+        }
+
+        /* SUN - SUBTLE GRADIENT ORB */
+        .retro-sun {
+            position: absolute;
+            bottom: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, 
+                rgba(255, 215, 0, 0.8) 0%,
+                rgba(255, 107, 53, 0.6) 30%,
+                rgba(255, 0, 255, 0.3) 60%,
+                transparent 80%
+            );
+            border-radius: 50%;
+            filter: blur(2px);
+        }
+
+        /* HERO CONTENT */
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: transparent;
+            border: 1px solid var(--neon-magenta);
+            color: var(--neon-magenta);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.75rem;
+            padding: 10px 30px;
+            letter-spacing: 4px;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+
+        .hero-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(5rem, 18vw, 14rem);
+            line-height: 0.9;
+            letter-spacing: 15px;
+            margin-bottom: 10px;
+            color: var(--white);
+            text-shadow: 0 0 60px rgba(0, 255, 255, 0.5);
+            animation: titleGlow 4s ease-in-out infinite;
+        }
+
+        .hero-logo {
+            max-width: 700px;
+            width: 90%;
+            height: auto;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { text-shadow: 0 0 60px rgba(0, 255, 255, 0.5); }
+            50% { text-shadow: 0 0 80px rgba(0, 255, 255, 0.7), 0 0 120px rgba(176, 38, 255, 0.3); }
+        }
+
+        .hero-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
+            font-weight: 300;
+            letter-spacing: 10px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 40px;
+            text-transform: uppercase;
+        }
+
+        .hero-tagline {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            font-weight: 300;
+            font-style: italic;
+            letter-spacing: 2px;
+            color: var(--neon-cyan);
+            margin-bottom: 15px;
+        }
+
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 70px;
+        }
+
+        .countdown-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            color: var(--white);
+            letter-spacing: 2px;
+            line-height: 1;
+        }
+
+        .countdown-label {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 5px;
+        }
+
+        .countdown-separator {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            color: rgba(255, 255, 255, 0.3);
+            margin-top: -20px;
+        }
+
+        .hero-date {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 10px;
+            letter-spacing: 3px;
+        }
+
+        .hero-location {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 50px;
+            letter-spacing: 2px;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            padding: 16px 45px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.4s ease;
+        }
+
+        .btn-primary {
+            background: var(--neon-magenta);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--white);
+            color: var(--dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(255, 0, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--dark);
+            transform: translateY(-2px);
+        }
+
+        /* SECTION STYLING */
+        section {
+            padding: 100px 40px;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            letter-spacing: 8px;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title.cyan {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 30px rgba(0, 255, 255, 0.4);
+        }
+
+        .section-title.magenta {
+            color: var(--neon-magenta);
+            text-shadow: 0 0 30px rgba(255, 0, 255, 0.4);
+        }
+
+        .section-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 4px;
+            color: var(--white);
+            opacity: 0.7;
+            text-transform: uppercase;
+        }
+
+        /* ABOUT SECTION */
+        .about {
+            background: #000000;
+        }
+
+        .about-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .about-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 45px 35px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .about-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .about-card:hover::before {
+            opacity: 1;
+        }
+
+        .about-icon {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .about-card h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            color: var(--white);
+            margin-bottom: 15px;
+            letter-spacing: 3px;
+        }
+
+        .about-card p {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 300;
+        }
+
+        /* MISSION STATEMENT */
+        .mission {
+            max-width: 900px;
+            margin: 60px auto 0;
+            text-align: center;
+            padding: 50px;
+            background: linear-gradient(135deg, rgba(176, 38, 255, 0.15), rgba(0, 255, 255, 0.05));
+            border: 1px solid rgba(176, 38, 255, 0.4);
+            position: relative;
+        }
+
+        .mission-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+            letter-spacing: 3px;
+            color: var(--white);
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+
+        .mission-highlight {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 15px var(--neon-cyan);
+        }
+
+        /* GUESTS SECTION */
+        .guests {
+            background: #000000;
+        }
+
+        .guest-category {
+            max-width: 1400px;
+            margin: 0 auto 80px;
+        }
+
+        .category-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .guests-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .guest-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 35px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .guest-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(0, 255, 255, 0.3);
+        }
+
+        .guest-badge {
+            display: inline-block;
+            background: transparent;
+            border: 1px solid var(--neon-magenta);
+            color: var(--neon-magenta);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .guest-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: var(--white);
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+
+        .guest-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--neon-cyan);
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .guest-credits {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .guest-credits li {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            padding: 6px 0;
+            padding-left: 15px;
+            position: relative;
+            font-weight: 300;
+        }
+
+        .guest-credits li::before {
+            content: '·';
+            position: absolute;
+            left: 0;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .retailer-card {
+            border-color: rgba(255, 215, 0, 0.4);
+            background: rgba(255, 215, 0, 0.05);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .retailer-card .guest-badge {
+            border-color: var(--chrome-yellow);
+            color: var(--chrome-yellow);
+        }
+
+        .retailer-card .guest-title {
+            color: var(--chrome-yellow);
+        }
+
+        /* EVENTS SECTION */
+        .events {
+            background: #000000;
+        }
+
+        .events-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .events-intro {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .events-intro p {
+            font-size: 1.05rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .day-schedule {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+
+        .day-header {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .day-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: var(--white);
+            letter-spacing: 4px;
+            margin-bottom: 5px;
+        }
+
+        .day-date {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            color: var(--neon-cyan);
+            letter-spacing: 2px;
+        }
+
+        .schedule-content {
+            padding: 40px 30px;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .schedule-placeholder {
+            text-align: center;
+        }
+
+        .placeholder-icon {
+            font-size: 2.5rem;
+            opacity: 0.5;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .placeholder-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .placeholder-subtext {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.4);
+            font-weight: 300;
+        }
+
+        .events-note {
+            text-align: center;
+            margin-top: 50px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .events-note p {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 300;
+        }
+
+        /* EXHIBITOR SECTION */
+        .exhibitors {
+            background: #000000;
+        }
+
+        .exhibitor-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .exhibitor-intro {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 1.05rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .table-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .table-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 45px 35px;
+            text-align: center;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .table-card.featured {
+            border-color: rgba(0, 255, 255, 0.4);
+            background: rgba(0, 255, 255, 0.05);
+        }
+
+        .table-card.featured::before {
+            content: 'MOST POPULAR';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--dark);
+            color: var(--neon-cyan);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 5px 20px;
+            letter-spacing: 2px;
+            border: 1px solid var(--neon-cyan);
+        }
+
+        .table-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .table-type {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: var(--white);
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+        }
+
+        .table-price {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: var(--white);
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .table-price span {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            opacity: 0.6;
+        }
+
+        .table-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .table-features li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .table-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--neon-magenta);
+            font-weight: bold;
+        }
+
+        .table-alt {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: var(--neon-cyan);
+            margin: 20px 0 10px;
+            letter-spacing: 3px;
+        }
+
+        .table-alt-desc {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin-bottom: 25px;
+            padding: 0 10px;
+            font-weight: 300;
+        }
+
+        .spots-warning {
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 3px;
+            margin-top: 40px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* REGISTRATION FORM */
+        .reg-form-container {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+
+        .form-toggle {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: none;
+            padding: 30px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-toggle:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .form-toggle-text {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: var(--white);
+            letter-spacing: 6px;
+        }
+
+        .form-toggle-icon {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: var(--neon-cyan);
+            transition: transform 0.3s ease;
+        }
+
+        .form-toggle-icon.open {
+            transform: rotate(45deg);
+        }
+
+        .form-content {
+            padding: 50px 60px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 16px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            color: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: rgba(0, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .form-select {
+            cursor: pointer;
+        }
+
+        .form-select option {
+            background: var(--dark);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .form-checkbox input {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--neon-magenta);
+            cursor: pointer;
+        }
+
+        .form-checkbox label {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.5;
+        }
+
+        .form-submit {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        /* DINING SECTION */
+        .dining {
+            background: #000000;
+        }
+
+        .dining-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .dining-intro {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .dining-intro p {
+            font-size: 1.05rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .dining-category {
+            margin-bottom: 50px;
+        }
+
+        .dining-category-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .dining-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .dining-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            transition: all 0.4s ease;
+        }
+
+        .dining-card:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .dining-card.on-site {
+            border-color: rgba(0, 255, 255, 0.3);
+            background: rgba(0, 255, 255, 0.03);
+        }
+
+        .dining-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            opacity: 0.8;
+        }
+
+        .dining-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: var(--white);
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .dining-type {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            color: var(--neon-cyan);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .dining-desc {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .dining-link {
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .dining-distance {
+            display: inline-block;
+            margin-top: 15px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 1px;
+        }
+
+        .dining-tag {
+            display: inline-block;
+            margin-top: 15px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--neon-cyan);
+            letter-spacing: 1px;
+            padding: 5px 12px;
+            border: 1px solid var(--neon-cyan);
+            text-transform: uppercase;
+        }
+
+        .dining-note {
+            text-align: center;
+            margin-top: 40px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .dining-note p {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 300;
+        }
+
+        /* TICKETS SECTION */
+        .tickets {
+            background: #000000;
+        }
+
+        .tickets-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .ticket-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .ticket-card.vip {
+            border-color: rgba(255, 215, 0, 0.4);
+            background: rgba(255, 215, 0, 0.05);
+        }
+
+        .ticket-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .ticket-header {
+            background: linear-gradient(135deg, rgba(176, 38, 255, 0.4), rgba(0, 212, 255, 0.2));
+            padding: 35px;
+            text-align: center;
+        }
+
+        .ticket-card.vip .ticket-header {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.5), rgba(255, 107, 53, 0.3));
+        }
+
+        .ticket-tier {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: var(--white);
+            letter-spacing: 6px;
+        }
+
+        .ticket-card.vip .ticket-tier {
+            color: var(--dark);
+            text-shadow: 2px 2px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        .ticket-price {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            color: var(--white);
+            margin-top: 10px;
+            letter-spacing: 2px;
+        }
+
+        .ticket-card.vip .ticket-price {
+            color: var(--dark);
+        }
+
+        .ticket-body {
+            padding: 35px;
+        }
+
+        .ticket-features {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .ticket-features li {
+            padding: 12px 0;
+            padding-left: 25px;
+            position: relative;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.95rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .ticket-features li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--neon-cyan);
+        }
+
+        .ticket-card.vip .ticket-features li::before {
+            color: var(--chrome-yellow);
+        }
+
+        .ticket-cta {
+            text-align: center;
+        }
+
+        /* MERCH SECTION */
+        .merch-section {
+            margin-top: 80px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .merch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .merch-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .merch-card:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .merch-card.exclusive {
+            border-color: rgba(255, 215, 0, 0.3);
+            background: rgba(255, 215, 0, 0.03);
+        }
+
+        .merch-save {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--neon-cyan);
+            letter-spacing: 1px;
+            margin-top: -5px;
+            margin-bottom: 5px;
+        }
+
+        .merch-category-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+
+        .merch-exclusive-note {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            margin-bottom: 25px;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        .shipping-note {
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 40px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.02);
+            letter-spacing: 1px;
+        }
+
+        .merch-icon {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            opacity: 0.8;
+        }
+
+        .merch-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--white);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .merch-price {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            color: var(--white);
+            letter-spacing: 2px;
+        }
+
+        .merch-desc {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 10px;
+            font-weight: 300;
+        }
+
+        /* CONTACT SECTION */
+        .contact {
+            background: #000000;
+        }
+
+        .contact-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .contact-intro {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .contact-intro p {
+            font-size: 1.05rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .contact-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px 30px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            display: block;
+        }
+
+        .contact-card:hover {
+            border-color: rgba(255, 0, 255, 0.4);
+            background: rgba(255, 0, 255, 0.05);
+            transform: translateY(-5px);
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        .contact-method {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: var(--white);
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+
+        .contact-detail {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            color: var(--neon-magenta);
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .contact-desc {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .contact-note {
+            text-align: center;
+            margin-top: 50px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .contact-note p {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 300;
+        }
+
+        /* FOOTER */
+        footer {
+            background: #000000;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 80px 40px 40px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 50px;
+        }
+
+        .footer-brand {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: var(--white);
+            letter-spacing: 6px;
+            margin-bottom: 10px;
+        }
+
+        .footer-tagline {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .footer-section h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--white);
+            letter-spacing: 3px;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 300;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            border-color: var(--white);
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 60px auto 0;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+        }
+
+        .footer-bottom p {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.85rem;
+            font-weight: 300;
+        }
+
+        .partner-text {
+            color: rgba(255, 255, 255, 0.5);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            margin-top: 10px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .retro-sun {
+                width: 200px;
+                height: 200px;
+            }
+
+            .form-content {
+                padding: 30px 20px;
+            }
+        }
+
+        /* ANIMATIONS ON SCROLL */
+        .fade-in {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* FAQ SECTION */
+        .faq {
+            background: #000000;
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .faq-question {
+            width: 100%;
+            background: transparent;
+            border: none;
+            padding: 25px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        .faq-question h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--white);
+            letter-spacing: 1px;
+            padding-right: 20px;
+        }
+
+        .faq-toggle {
+            font-size: 1.5rem;
+            color: var(--neon-cyan);
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding-bottom: 25px;
+        }
+
+        .faq-answer p {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 300;
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-logo">IO-CON</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#guests">Guests</a></li>
+                <li><a href="#exhibitors">Exhibitors</a></li>
+                <li><a href="#tickets">Tickets</a></li>
+                <li class="nav-dropdown">
+                    <a href="#dining">Visitor Info</a>
+                    <div class="dropdown-menu">
+                        <a href="#dining">Dining</a>
+                        <a href="#hotel">Hotel</a>
+                        <a href="#parking">Parking</a>
+                        <a href="#faq">FAQ</a>
+                    </div>
+                </li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="mobile-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+        <div class="retro-sun"></div>
+        <div class="grid-floor"></div>
+        
+        <div class="hero-content">
+            <span class="hero-badge">INAUGURAL EVENT</span>
+            <img src="assets/image1.jpg" alt="IO-CON" class="hero-logo">
+            <p class="hero-tagline">An Intimate Showcase of Comic Artistry</p>
+            <p class="hero-subtitle">INDEPENDENT ORIGINALS CONVENTION</p>
+            
+            <!-- COUNTDOWN TIMER -->
+            <div class="countdown-container">
+                <div class="countdown-item">
+                    <span class="countdown-number" id="days">000</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-separator">:</div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="hours">00</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-separator">:</div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="minutes">00</span>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+                <div class="countdown-separator">:</div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="seconds">00</span>
+                    <span class="countdown-label">Seconds</span>
+                </div>
+            </div>
+            <script>
+            (function(){
+                var target = new Date('2026-09-19T10:00:00').getTime();
+                function tick(){
+                    var now = Date.now();
+                    var diff = target - now;
+                    if(diff > 0){
+                        var d = Math.floor(diff / 86400000);
+                        var h = Math.floor((diff % 86400000) / 3600000);
+                        var m = Math.floor((diff % 3600000) / 60000);
+                        var s = Math.floor((diff % 60000) / 1000);
+                        document.getElementById('days').innerText = ('00' + d).slice(-3);
+                        document.getElementById('hours').innerText = ('0' + h).slice(-2);
+                        document.getElementById('minutes').innerText = ('0' + m).slice(-2);
+                        document.getElementById('seconds').innerText = ('0' + s).slice(-2);
+                    }
+                }
+                tick();
+                setInterval(tick, 1000);
+            })();
+            </script>
+            
+            <p class="hero-date">SEPTEMBER 19-20, 2026</p>
+            <p class="hero-location">Cambria Hotel — Top Floor Convention Space & 354 SkyBar</p>
+            <div class="cta-group">
+                <a href="#tickets" class="btn btn-primary">GET TICKETS</a>
+                <a href="#exhibitors" class="btn btn-secondary">APPLY FOR TABLE</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="about" id="about">
+        <div class="section-header">
+            <h2 class="section-title cyan">WHAT IS IO-CON?</h2>
+            <p class="section-subtitle">A PREMIUM COMIC & ART EXPERIENCE</p>
+        </div>
+
+        <div class="about-grid fade-in">
+            <div class="about-card">
+                <span class="about-icon">🎨</span>
+                <h3>ARTIST-CENTRIC</h3>
+                <p>IO-CON values both creators and collectors. Due to the curated nature of the convention, we will be hand-selecting artists for both cohesion and authenticity.</p>
+            </div>
+            <div class="about-card">
+                <span class="about-icon">⭐</span>
+                <h3>PREMIUM EXPERIENCE</h3>
+                <p>An intimate event for those who want one-on-one interactions and to support their favorite (or soon-to-be!) artist. We collect no commission on sales, so they keep 100% of profits made. Quality time and products over quantity.</p>
+            </div>
+            <div class="about-card">
+                <span class="about-icon">🛡️</span>
+                <h3>NO AI ART</h3>
+                <p>We strictly enforce a human-art-only policy. Every piece sold at IO-CON is verified authentic—protecting the integrity of human creativity in the age of AI.</p>
+            </div>
+            <div class="about-card">
+                <span class="about-icon">💜</span>
+                <h3>COMMUNITY FIRST</h3>
+                <p>We will be holding a toy and book drive for the Happy Wheels Program, a South Carolina nonprofit that brings comfort and joy to children receiving medical care by delivering brand-new toys, games, books, and activities to pediatric patients year-round. Through weekly visits to children's hospitals across the state, Happy Wheels helps brighten hospital stays, and we're proud to be part of that effort. <a href="https://www.happywheels.org/get-involved/wish-list/" target="_blank" style="color: var(--neon-cyan);">Click here</a> for gift guidelines and their active wishlist.</p>
+            </div>
+        </div>
+
+        <div class="mission fade-in">
+            <p class="mission-text">
+                <span class="mission-highlight">CELEBRATING ARTISTS</span> — NOT ALGORITHMS
+            </p>
+        </div>
+    </section>
+
+    <!-- GUESTS SECTION -->
+    <section class="guests" id="guests">
+        <div class="section-header">
+            <h2 class="section-title magenta">FEATURED GUESTS</h2>
+            <p class="section-subtitle">INDUSTRY LEGENDS & RISING STARS</p>
+        </div>
+
+        <!-- OFFICIAL RETAILER -->
+        <div class="guest-category fade-in">
+            <h3 class="category-title">★ OFFICIAL RETAILER ★</h3>
+            <div class="guests-grid">
+                <div class="guest-card retailer-card">
+                    <div class="guest-card-inner">
+                        <span class="guest-badge">EXCLUSIVE</span>
+                        <h4 class="guest-name">MAC'S HEROES AND VILLAINS</h4>
+                        <p class="guest-title">Official Comic & Collectibles Partner</p>
+                        <ul class="guest-credits">
+                            <li>South Charlotte's largest comic shop</li>
+                            <li>Exclusive IO-CON retail partner</li>
+                            <li>Vintage & modern comics</li>
+                            <li>Premium collectibles & memorabilia</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HEADLINERS -->
+        <div class="guest-category fade-in">
+            <h3 class="category-title">★ HEADLINER GUESTS ★</h3>
+            <div class="guests-grid">
+                <div class="guest-card">
+                    <div class="guest-card-inner">
+                        <span class="guest-badge">COMING SOON</span>
+                        <h4 class="guest-name">TO BE ANNOUNCED</h4>
+                        <p class="guest-title">Stay Tuned</p>
+                        <ul class="guest-credits">
+                            <li>Exciting guests coming soon!</li>
+                            <li>Follow us on social media</li>
+                            <li>for the latest announcements</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="guest-card">
+                    <div class="guest-card-inner">
+                        <span class="guest-badge">COMING SOON</span>
+                        <h4 class="guest-name">TO BE ANNOUNCED</h4>
+                        <p class="guest-title">Stay Tuned</p>
+                        <ul class="guest-credits">
+                            <li>Exciting guests coming soon!</li>
+                            <li>Follow us on social media</li>
+                            <li>for the latest announcements</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FEATURED ARTISTS -->
+        <div class="guest-category fade-in">
+            <h3 class="category-title">FEATURED ARTISTS</h3>
+            <div class="guests-grid">
+                <div class="guest-card">
+                    <div class="guest-card-inner">
+                        <span class="guest-badge">COMING SOON</span>
+                        <h4 class="guest-name">TO BE ANNOUNCED</h4>
+                        <p class="guest-title">Stay Tuned</p>
+                        <ul class="guest-credits">
+                            <li>More artists coming soon!</li>
+                            <li>Follow @IOCONofficial</li>
+                            <li>for announcements</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="guest-card">
+                    <div class="guest-card-inner">
+                        <span class="guest-badge">COMING SOON</span>
+                        <h4 class="guest-name">TO BE ANNOUNCED</h4>
+                        <p class="guest-title">Stay Tuned</p>
+                        <ul class="guest-credits">
+                            <li>More artists coming soon!</li>
+                            <li>Follow @IOCONofficial</li>
+                            <li>for announcements</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- INDIE PUBLISHERS -->
+        <div class="guest-category fade-in">
+            <h3 class="category-title">INDIE PUBLISHERS</h3>
+            <div class="guests-grid">
+                <div class="guest-card">
+                    <div class="guest-card-inner">
+                        <span class="guest-badge">PUBLISHER</span>
+                        <h4 class="guest-name">HAUNTED PIZZA</h4>
+                        <p class="guest-title">Independent Publisher</p>
+                        <ul class="guest-credits">
+                            <li>Horror & comedy comics</li>
+                            <li>Unique indie titles</li>
+                            <li>Fresh creator voices</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="guest-card">
+                    <div class="guest-card-inner">
+                        <span class="guest-badge">PUBLISHER</span>
+                        <h4 class="guest-name">ETHEREAL COMICS</h4>
+                        <p class="guest-title">Independent Publisher</p>
+                        <ul class="guest-credits">
+                            <li>Fantasy & supernatural</li>
+                            <li>Original IPs</li>
+                            <li>Creator-owned titles</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="guest-card">
+                    <div class="guest-card-inner">
+                        <span class="guest-badge">FEATURED</span>
+                        <h4 class="guest-name">3D JOES</h4>
+                        <p class="guest-title"><a href="https://www.3djoes.com/" target="_blank" style="color: inherit; text-decoration: none;">3djoes.com</a></p>
+                        <ul class="guest-credits">
+                            <li>Interactive G.I. Joe museum</li>
+                            <li>A Real American Hero archive</li>
+                            <li>3D figure photography & nostalgia</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p style="text-align: center; color: rgba(255,255,255,0.5); margin-top: 50px; font-family: 'Montserrat', sans-serif; letter-spacing: 3px; font-size: 0.85rem; font-weight: 400; text-transform: uppercase;">
+            Additional guests to be announced
+        </p>
+    </section>
+
+    <!-- EXHIBITORS SECTION -->
+    <section class="exhibitors" id="exhibitors">
+        <div class="section-header">
+            <h2 class="section-title cyan">EXHIBIT AT IO-CON</h2>
+            <p class="section-subtitle">SECURE YOUR TABLE TODAY</p>
+        </div>
+
+        <div class="exhibitor-content">
+            <p class="exhibitor-intro fade-in">
+                Join our curated selection of artists at IO-CON's inaugural event. 
+                <strong style="color: var(--chrome-yellow);">Only 10 Artist Alley spots available</strong> to maintain our premium, intimate atmosphere. 
+                We carefully curate artwork to align with the convention's theme—ensuring a cohesive experience that benefits both artists and attendees.
+                <strong style="color: var(--neon-magenta);">All artwork must be human-created—no AI art permitted.</strong>
+            </p>
+
+            <div class="table-options fade-in">
+                <div class="table-card featured" style="max-width: 450px; margin: 0 auto;">
+                    <h3 class="table-type">ARTIST ALLEY</h3>
+                    <p class="table-price">$100 <span>/ weekend</span></p>
+                    <ul class="table-features">
+                        <li>6ft table space</li>
+                        <li>2 exhibitor badges</li>
+                        <li>Listing in program</li>
+                        <li>Social media promotion</li>
+                        <li>Setup: Friday 4–7 PM</li>
+                    </ul>
+                    <p class="table-alt">— OR —</p>
+                    <p class="table-alt-desc">Purchase $100 worth of prints from IO-CON to sell at your table — <strong style="color: var(--neon-cyan);">and your table is included FREE!</strong></p>
+                    <a href="mailto:ioconsupport@gmail.com?subject=IO-CON%202026%20Artist%20Alley%20Application&body=IO-CON%202026%20ARTIST%20ALLEY%20APPLICATION%0A%0A---%20BASIC%20INFORMATION%20---%0AFull%20Name%3A%0ABusiness%2FArtist%20Name%3A%0AEmail%3A%0APhone%20Number%3A%0A%0A---%20YOUR%20WORK%20---%0AWebsite%20or%20Portfolio%20Link%3A%0AInstagram%2FSocial%20Media%20Handle%3A%0ABrief%20description%20of%20your%20work%3A%0A%0A---%20EXPERIENCE%20---%0AHave%20you%20exhibited%20at%20conventions%20before%3F%20(Yes%2FNo)%3A%0AIf%20yes%2C%20which%20conventions%3F%0A%0A---%20CONTENT%20DISCLOSURE%20---%0ADoes%20your%20work%20include%20X-rated%20or%20explicit%20material%3F%20(Yes%2FNo)%3A%0AIf%20yes%2C%20please%20describe%3A%0A%0A---%20AGREEMENTS%20---%0APlease%20type%20%22I%20AGREE%22%20next%20to%20each%3A%0A%0A____%20I%20confirm%20all%20artwork%20is%20human-created%20(no%20AI%20art).%0A%0A____%20I%20have%20read%20and%20agree%20to%20the%20IO-CON%202026%20Exhibitor%20Terms%20%26%20Conditions.%0A%0A____%20I%20understand%20application%20does%20not%20guarantee%20acceptance.%0A%0A____%20I%20understand%20full%20payment%20(%24100)%20is%20due%20via%20TicketLeap%20upon%20acceptance." class="btn btn-primary">APPLY NOW</a>
+                </div>
+            </div>
+            
+            <p class="spots-warning fade-in">⚡ ONLY 10 ARTIST ALLEY SPOTS — APPLICATIONS REVIEWED ON A ROLLING BASIS ⚡</p>
+
+            <div class="exhibitor-terms fade-in" style="max-width: 800px; margin: 40px auto 0; text-align: left; background: rgba(255,255,255,0.05); padding: 30px; border-radius: 8px; border: 1px solid rgba(0, 255, 255, 0.2);">
+                <h3 style="color: var(--neon-cyan); margin-bottom: 20px; text-align: center;">EXHIBITOR TERMS & CONDITIONS</h3>
+                
+                <p style="color: rgba(255,255,255,0.8); font-size: 0.95rem; line-height: 1.8; margin-bottom: 15px;"><strong style="color: var(--neon-magenta);">Table Space & Setup:</strong> Artist Alley includes a 6ft table, 2 chairs, and 2 exhibitor badges. Setup is Friday 4:00–7:00 PM. Teardown is Sunday 3:00–5:00 PM — no early breakdown. Exhibitors must remain for the full duration of both days.</p>
+                
+                <p style="color: rgba(255,255,255,0.8); font-size: 0.95rem; line-height: 1.8; margin-bottom: 15px;"><strong style="color: var(--neon-magenta);">Payment:</strong> Full payment ($100) due upon acceptance via TicketLeap.</p>
+                
+                <p style="color: rgba(255,255,255,0.8); font-size: 0.95rem; line-height: 1.8; margin-bottom: 15px;"><strong style="color: var(--neon-magenta);">Refunds:</strong> 45+ days before event: full refund minus $25 fee. 21-44 days: 50% refund. Less than 21 days: no refund. If IO-CON cancels, full refunds issued.</p>
+                
+                <p style="color: rgba(255,255,255,0.8); font-size: 0.95rem; line-height: 1.8; margin-bottom: 15px;"><strong style="color: var(--neon-magenta);">Content & Conduct:</strong> All artwork must be human-created — no AI art. X-rated material subject to approval; contact us before applying. Professional conduct required at all times.</p>
+                
+                <p style="color: rgba(255,255,255,0.8); font-size: 0.95rem; line-height: 1.8; margin-bottom: 15px;"><strong style="color: var(--neon-magenta);">Sales & Taxes:</strong> Exhibitors collect/remit their own sales tax. IO-CON takes no commission. Bring your own payment processing.</p>
+                
+                <p style="color: rgba(255,255,255,0.8); font-size: 0.95rem; line-height: 1.8; margin-bottom: 15px;"><strong style="color: var(--neon-magenta);">Liability:</strong> IO-CON is not responsible for lost, stolen, or damaged items. Exhibitors encouraged to carry insurance.</p>
+                
+                <p style="color: rgba(255,255,255,0.8); font-size: 0.95rem; line-height: 1.8;"><strong style="color: var(--neon-magenta);">Curated Event:</strong> IO-CON is a curated show — application does not guarantee acceptance.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- TICKETS SECTION -->
+    <section class="tickets" id="tickets">
+        <div class="section-header">
+            <h2 class="section-title magenta">GET YOUR TICKETS</h2>
+            <p class="section-subtitle">LIMITED ATTENDANCE — DON'T MISS OUT</p>
+        </div>
+
+        <div class="tickets-grid fade-in">
+            <div class="ticket-card">
+                <div class="ticket-header">
+                    <h3 class="ticket-tier">INFANTRY</h3>
+                    <p class="ticket-price">$50</p>
+                </div>
+                <div class="ticket-body">
+                    <ul class="ticket-features">
+                        <li>Full weekend access (Sept 19-20)</li>
+                        <li>Access to all artist booths</li>
+                        <li>Meet & greet opportunities</li>
+                        <li>Exclusive con program</li>
+                    </ul>
+                    <div class="ticket-cta">
+                        <a href="https://events.ticketleap.com/events/i-o-con" target="_blank" rel="noreferrer" style="background-color: rgb(199, 0, 230); border: 1px solid rgb(199, 0, 230); border-radius: 22.5rem; color: rgb(255, 255, 255); cursor: pointer; display: inline-block; font-family: Helvetica, Arial; font-size: 0.875rem; font-weight: 400; line-height: 1.5; min-width: 150px; padding: 8px 20px; text-align: center; text-decoration: none; text-wrap: nowrap; transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; user-select: none; vertical-align: middle;">BUY TICKETS</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ticket-card">
+                <div class="ticket-header">
+                    <h3 class="ticket-tier">EARLY EAGLE</h3>
+                    <p class="ticket-price">$95</p>
+                </div>
+                <div class="ticket-body">
+                    <ul class="ticket-features">
+                        <li>Everything in Infantry</li>
+                        <li>Early entry (30 min before GA)</li>
+                        <li>Premium lanyard & badge</li>
+                    </ul>
+                    <div class="ticket-cta">
+                        <a href="https://events.ticketleap.com/events/i-o-con" target="_blank" rel="noreferrer" style="background-color: rgb(199, 0, 230); border: 1px solid rgb(199, 0, 230); border-radius: 22.5rem; color: rgb(255, 255, 255); cursor: pointer; display: inline-block; font-family: Helvetica, Arial; font-size: 0.875rem; font-weight: 400; line-height: 1.5; min-width: 150px; padding: 8px 20px; text-align: center; text-decoration: none; text-wrap: nowrap; transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; user-select: none; vertical-align: middle;">BUY TICKETS</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ticket-card vip">
+                <div class="ticket-header">
+                    <h3 class="ticket-tier">THE ALCHEMIST</h3>
+                    <p class="ticket-price">$200</p>
+                </div>
+                <div class="ticket-body">
+                    <ul class="ticket-features">
+                        <li>Everything in Early Eagle</li>
+                        <li>Exclusive merch bundle included:</li>
+                        <li>— 3-pack aluminum posters</li>
+                        <li>— 2 cardstock prints</li>
+                        <li>— Official t-shirt</li>
+                        <li>— IO-CON pint glass</li>
+                    </ul>
+                    <div class="ticket-cta">
+                        <a href="https://events.ticketleap.com/events/i-o-con" target="_blank" rel="noreferrer" style="background-color: rgb(199, 0, 230); border: 1px solid rgb(199, 0, 230); border-radius: 22.5rem; color: rgb(255, 255, 255); cursor: pointer; display: inline-block; font-family: Helvetica, Arial; font-size: 0.875rem; font-weight: 400; line-height: 1.5; min-width: 150px; padding: 8px 20px; text-align: center; text-decoration: none; text-wrap: nowrap; transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; user-select: none; vertical-align: middle;">BUY ALCHEMIST</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MERCHANDISE -->
+        <div class="merch-section fade-in">
+            <div class="section-header">
+                <h2 class="section-title cyan" style="font-size: 2.5rem;">OFFICIAL MERCH</h2>
+            </div>
+
+            <div style="text-align: center; margin: 30px auto; max-width: 800px;">
+                <img src="assets/image2.png" alt="IO-CON Official Merchandise" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 0 30px rgba(199, 0, 230, 0.3);">
+            </div>
+            
+            <p class="merch-exclusive-note" style="text-align: center; font-size: 1.2rem; margin-top: 30px;">Limited edition merchandise with exclusive art, made in the USA. Prices TBA.</p>
+        </div>
+    </section>
+
+    <!-- DINING SECTION -->
+    <section class="dining" id="dining">
+        <div class="section-header">
+            <h2 class="section-title cyan">LOCAL DINING</h2>
+            <p class="section-subtitle">FOOD & DRINKS NEAR THE VENUE</p>
+        </div>
+
+        <div class="dining-container fade-in">
+            <div class="dining-intro">
+                <p>Fuel up before, during, or after the convention. From on-site options at the Cambria Hotel to nearby Rock Hill favorites, there's something for every taste.</p>
+            </div>
+
+            <div class="dining-category">
+                <h3 class="dining-category-title">On-Site at the Cambria Hotel</h3>
+                <div class="dining-grid">
+                    <div class="dining-card on-site">
+                        <div class="dining-icon">🍸</div>
+                        <h4 class="dining-name">354 SkyBar</h4>
+                        <p class="dining-type">Rooftop Bar</p>
+                        <p class="dining-desc">Craft cocktails and stunning views from the convention venue. Steps away from the action.</p>
+                        <span class="dining-tag">Convention Venue</span>
+                    </div>
+                    <div class="dining-card on-site">
+                        <div class="dining-icon">🍽️</div>
+                        <h4 class="dining-name">Hotel Restaurant</h4>
+                        <p class="dining-type">American Cuisine</p>
+                        <p class="dining-desc">Full-service dining available on the ground floor. Perfect for sit-down meals.</p>
+                        <span class="dining-tag">On-Site</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dining-category">
+                <h3 class="dining-category-title">Nearby in Rock Hill</h3>
+                <div class="dining-grid">
+                    <a href="https://oldtownrockhill.com" target="_blank" class="dining-card dining-link">
+                        <div class="dining-icon">🍽️</div>
+                        <h4 class="dining-name">Old Town Kitchen & Cocktails</h4>
+                        <p class="dining-type">American · Cocktails</p>
+                        <p class="dining-desc">Southern-inspired cuisine with craft cocktails.</p>
+                        <span class="dining-distance">300 Technology Center Way</span>
+                    </a>
+                    <a href="https://www.everbowl.com" target="_blank" class="dining-card dining-link">
+                        <div class="dining-icon">🥣</div>
+                        <h4 class="dining-name">Everbowl</h4>
+                        <p class="dining-type">Acai Bowls · Smoothies</p>
+                        <p class="dining-desc">Craft superfood bowls and smoothies. Perfect for a quick, energizing bite.</p>
+                        <span class="dining-distance">One crosswalk away from venue!</span>
+                    </a>
+                    <a href="https://www.dankburrito.com" target="_blank" class="dining-card dining-link">
+                        <div class="dining-icon">🌯</div>
+                        <h4 class="dining-name">Dank Burrito</h4>
+                        <p class="dining-type">Global Street Food · Burritos</p>
+                        <p class="dining-desc">Chef-driven burritos, bowls, and tacos with global flavors.</p>
+                        <span class="dining-distance">One crosswalk away from venue!</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="dining-note fade-in">
+                <p>Have a favorite local spot we should add? Let us know on social media!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOTEL SECTION -->
+    <section class="dining" id="hotel">
+        <div class="section-header">
+            <h2 class="section-title cyan">HOTEL</h2>
+            <p class="section-subtitle">WHERE TO STAY</p>
+        </div>
+
+        <div class="dining-container fade-in visible">
+            <div class="dining-intro">
+                <p>The convention is hosted at the Cambria Hotel — stay on-site for the ultimate IO-CON experience!</p>
+            </div>
+
+            <div style="text-align: center; margin-bottom: 40px;">
+                <img src="assets/image3.jpg" alt="Cambria Hotel Rock Hill" style="max-width: 600px; width: 100%; border-radius: 8px; border: 1px solid rgba(0, 255, 255, 0.3);">
+            </div>
+
+            <div class="dining-category">
+                <h3 class="dining-category-title">Official Convention Hotel</h3>
+                <div class="dining-grid">
+                    <a href="https://www.choicehotels.com/south-carolina/rock-hill/cambria-hotels" target="_blank" class="dining-card on-site dining-link">
+                        <div class="dining-icon">🏨</div>
+                        <h4 class="dining-name">Cambria Hotel</h4>
+                        <p class="dining-type">Rock Hill, SC</p>
+                        <p class="dining-desc">Stay where the action is! The convention is held on the top floor, with 354 SkyBar and on-site dining just an elevator ride away.</p>
+                        <span class="dining-tag">Convention Venue</span>
+                    </a>
+                    <div class="dining-card on-site">
+                        <div class="dining-icon">📍</div>
+                        <h4 class="dining-name">Location</h4>
+                        <p class="dining-type">350 Technology Center Way</p>
+                        <p class="dining-desc">Rock Hill, SC 29730</p>
+                        <span class="dining-distance">You're already here!</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dining-note fade-in">
+                <p>Mention "IO-CON 2026" when booking for special attendee rates!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PARKING SECTION -->
+    <section class="dining" id="parking">
+        <div class="section-header">
+            <h2 class="section-title cyan">PARKING</h2>
+            <p class="section-subtitle">WHERE TO PARK</p>
+        </div>
+
+        <div class="dining-container fade-in visible">
+            <div class="dining-intro">
+                <p>Convenient parking options for IO-CON attendees.</p>
+            </div>
+
+            <div class="dining-category">
+                <h3 class="dining-category-title">Parking Options</h3>
+                <div class="dining-grid">
+                    <div class="dining-card on-site">
+                        <div class="dining-icon">🅿️</div>
+                        <h4 class="dining-name">Cambria Hotel Parking</h4>
+                        <p class="dining-type">On-Site Parking</p>
+                        <p class="dining-desc">Parking available at the convention venue. Limited spaces available on a first-come, first-served basis.</p>
+                        <span class="dining-tag">Convention Venue</span>
+                    </div>
+                    <div class="dining-card on-site">
+                        <div class="dining-icon">🚗</div>
+                        <h4 class="dining-name">Nearby Parking</h4>
+                        <p class="dining-type">Overflow Parking</p>
+                        <p class="dining-desc">Additional parking available in the Knowledge Park area surrounding the venue.</p>
+                        <span class="dining-tag">Walking Distance</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dining-note fade-in">
+                <p>We recommend carpooling when possible. More parking details coming soon!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="faq" id="faq">
+        <div class="section-header">
+            <h2 class="section-title cyan">FAQ</h2>
+            <p class="section-subtitle">FREQUENTLY ASKED QUESTIONS</p>
+        </div>
+
+        <div class="faq-container fade-in">
+            <div class="faq-item">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+                    <h4>Is there an age limit?</h4>
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>Yes — IO-CON is for attendees 18 and older. This isn't a convention with children oriented activities and events. It's for the immature mature collector who wants to geek out and talk comics.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+                    <h4>Are costumes and cosplay allowed?</h4>
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>Absolutely! We love seeing your creativity. Please note there won't be any cosplay contests or competitions — this is purely for fun. We ask that all costumes remain tasteful and appropriate for a public setting.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+                    <h4>How do autographs and sketches work?</h4>
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>All autograph and sketch prices are set by the individual guest or artist — and 100% of those profits go directly to them, not to the convention.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+                    <h4>Can I take photos?</h4>
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>Photography is allowed with the permission of the guest or artist. Always ask before snapping!</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+                    <h4>Can I leave and re-enter?</h4>
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>Yes! Re-entry is allowed and encouraged. Just make sure you have your lanyard and/or wristband with you.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+                    <h4>Can I bring food and drinks?</h4>
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>We ask that food and drinks (with the exception of bottled water) be consumed in break areas or the restaurant — not on the show floor.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+                    <h4>Is the venue accessible?</h4>
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>Yes. The Cambria Hotel strives to ensure that every area of the property meets the standards of the Americans With Disabilities Act so that each visitor can experience the best of what they have to offer.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="this.parentElement.classList.toggle('active')">
+                    <h4>What is your refund policy?</h4>
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <p>Ticket refunds are processed through TicketLeap up until three weeks before the event. After that, all ticket sales are final. All merchandise sales are final — however, if your merchandise arrives damaged or doesn't arrive at all, please reach out to our customer care team and we'll take care of you.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="contact" id="contact">
+        <div class="section-header">
+            <h2 class="section-title magenta">CHAT WITH US</h2>
+            <p class="section-subtitle">GET IN TOUCH</p>
+        </div>
+
+        <div class="contact-container fade-in">
+            <div class="contact-intro">
+                <p>Have questions about IO-CON? Want to discuss press coverage or just say hello? We'd love to hear from you.</p>
+            </div>
+
+            <div class="contact-grid">
+                <a href="mailto:ioconsupport@gmail.com" class="contact-card">
+                    <div class="contact-icon">✉️</div>
+                    <h4 class="contact-method">Email Us</h4>
+                    <p class="contact-detail">ioconsupport@gmail.com</p>
+                    <p class="contact-desc">For general inquiries and exhibitor questions</p>
+                </a>
+
+                <a href="https://instagram.com/IOCONofficial" target="_blank" class="contact-card">
+                    <div class="contact-icon">📷</div>
+                    <h4 class="contact-method">Instagram</h4>
+                    <p class="contact-detail">@IOCONofficial</p>
+                    <p class="contact-desc">Follow for guest announcements and updates</p>
+                </a>
+
+                <a href="https://facebook.com/events/s/io-con/2011347642759177/" target="_blank" class="contact-card">
+                    <div class="contact-icon">👤</div>
+                    <h4 class="contact-method">Facebook</h4>
+                    <p class="contact-detail">IO-CON Event</p>
+                    <p class="contact-desc">Join the community and RSVP to the event</p>
+                </a>
+            </div>
+
+            <div class="contact-note fade-in">
+                <p>We typically respond within 24-48 hours.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <div class="footer-brand">IO-CON</div>
+                <p class="footer-tagline">INDEPENDENT ORIGINALS CONVENTION</p>
+                <p style="margin-top: 15px; color: rgba(255,255,255,0.7);">September 19-20, 2026<br>Rock Hill, SC</p>
+                <div class="social-links">
+                    <a href="#" class="social-link" title="Facebook">f</a>
+                    <a href="#" class="social-link" title="Instagram">📷</a>
+                    <a href="#" class="social-link" title="Twitter">𝕏</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="#about">About IO-CON</a></li>
+                    <li><a href="#guests">Featured Guests</a></li>
+                    <li><a href="#exhibitors">Exhibit With Us</a></li>
+                    <li><a href="#tickets">Buy Tickets</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <ul class="footer-links">
+                    <li><a href="mailto:ioconsupport@gmail.com">ioconsupport@gmail.com</a></li>
+                    <li><a href="#">Press Inquiries</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Venue</h4>
+                <p style="color: rgba(255,255,255,0.7); line-height: 1.8;">
+                    Cambria Hotel<br>
+                    Top Floor Convention Space<br>
+                    & 354 SkyBar<br>
+                    Rock Hill, SC
+                </p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 IO-CON. All rights reserved.</p>
+            <p class="partner-text">Media Partner: Mac's Heroes and Villains</p>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        function toggleForm() {
+            const formContent = document.getElementById('form-content');
+            const toggleIcon = document.getElementById('toggle-icon');
+            
+            if (formContent.style.display === 'none') {
+                formContent.style.display = 'block';
+                toggleIcon.textContent = '−';
+                toggleIcon.classList.add('open');
+            } else {
+                formContent.style.display = 'none';
+                toggleIcon.textContent = '+';
+                toggleIcon.classList.remove('open');
+            }
+        }
+
+        const targetDate = new Date('September 19, 2026 10:00:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance > 0) {
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                if (document.getElementById('days')) {
+                    document.getElementById('days').textContent = String(days).padStart(3, '0');
+                    document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+                    document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+                    document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+                }
+            }
+        }
+
+        // Run immediately and then every second
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        });
+        
+        // Also try running immediately in case DOMContentLoaded already fired
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, observerOptions);
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        document.getElementById('exhibitor-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your application! We will review your submission and contact you within 5-7 business days.');
+            this.reset();
+            document.getElementById('payment-method-group').style.display = 'none';
+        });
+
+        document.getElementById('table-type').addEventListener('change', function() {
+            const paymentGroup = document.getElementById('payment-method-group');
+            const paymentSelect = document.getElementById('payment-method');
+            if (this.value === 'artist') {
+                paymentGroup.style.display = 'flex';
+                paymentSelect.required = true;
+            } else {
+                paymentGroup.style.display = 'none';
+                paymentSelect.required = false;
+                paymentSelect.value = '';
+            }
+        });
+
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+
+        mobileMenu.addEventListener('click', () => {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            navLinks.style.flexDirection = 'column';
+            navLinks.style.position = 'absolute';
+            navLinks.style.top = '70px';
+            navLinks.style.right = '20px';
+            navLinks.style.background = 'var(--darker-purple)';
+            navLinks.style.padding = '20px';
+            navLinks.style.borderRadius = '10px';
+            navLinks.style.border = '2px solid var(--neon-magenta)';
+        });
+
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (windo
